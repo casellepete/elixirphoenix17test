@@ -35,6 +35,7 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :tk, Tk.Repo,
   adapter: Ecto.Adapters.Postgres,
+  hostname: "postgres",
   username: "postgres",
   password: "postgres",
   database: "tk_dev",

@@ -1,0 +1,38 @@
+<h2>Show user</h2>
+
+<ul>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </li>
+
+  <li>
+    <strong>Encrypted password:</strong>
+    <%= @user.encrypted_password %>
+  </li>
+
+  <li>
+    <strong>Timezone:</strong>
+    <%= @user.timezone %>
+  </li>
+
+  <li>
+    <strong>Organization:</strong>
+    <%= @user.organization_id %>
+  </li>
+
+  <li>
+    <strong>Comment:</strong>
+    <%= @user.comment %>
+  </li>
+
+  <li>
+    <strong>Tc:</strong>
+    <%= @user.tc %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_path(@conn, :edit, @user) %>
+<%= link "Back", to: user_path(@conn, :index) %>

@@ -1,4 +1,4 @@
-# Tk
+# Hi
 
 To start your Phoenix app:
 
