@@ -12,8 +12,8 @@ defmodule Tk.User do
     timestamps
   end
 
-  @required_fields ~w(email encrypted_password timezone organization_id comment tc)
-  @optional_fields ~w()
+  @required_fields ~w(email encrypted_password timezone tc)
+  @optional_fields ~w(organization_id comment)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
