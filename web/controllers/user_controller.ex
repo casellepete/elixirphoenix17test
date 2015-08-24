@@ -53,6 +53,38 @@ defmodule Tk.UserController do
     end
   end
 
+  def punchin(conn, %{"id" => id}) do
+    user = Repo.get!(User, id)
+    changeset = User.changeset(user, %{ is_in: true })
+
+    case Repo.update(changeset) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "Punch In Successfull!")
+        |> redirect(to: user_path(conn, :index))
+      {:error, changeset} ->
+        conn
+        |> put_flash(:info, "There was a problem punching in.")
+        |> redirect(to: user_path(conn, :index))
+    end
+  end
+
+  def punchout(conn, %{"id" => id}) do
+    user = Repo.get!(User, id)
+    changeset = User.changeset(user, %{ is_in: false })
+
+    case Repo.update(changeset) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "Punch Out Successfull!")
+        |> redirect(to: user_path(conn, :index))
+      {:error, changeset} ->
+        conn
+        |> put_flash(:info, "There was a problem punching out.")
+        |> redirect(to: user_path(conn, :index))
+    end
+  end
+
   def delete(conn, %{"id" => id}) do
     user = Repo.get!(User, id)
 

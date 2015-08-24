@@ -8,12 +8,13 @@ defmodule Tk.User do
     field :organization_id, :integer
     field :comment, :string
     field :tc, :boolean, default: false
+    field :is_in, :boolean, default: false
 
     timestamps
   end
 
   @required_fields ~w(email encrypted_password timezone tc)
-  @optional_fields ~w(organization_id comment)
+  @optional_fields ~w(organization_id comment is_in)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

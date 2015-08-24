@@ -18,6 +18,8 @@ defmodule Tk.Router do
 
     get "/", PageController, :index
     resources "/users", UserController
+    get "/punchin/:id", UserController, :punchin
+    get "/punchout/:id", UserController, :punchout
   end
 
 

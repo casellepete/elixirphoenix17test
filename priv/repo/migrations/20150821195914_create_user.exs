@@ -9,6 +9,7 @@ defmodule Tk.Repo.Migrations.CreateUser do
       add :organization_id, :integer
       add :comment, :string
       add :tc, :boolean, default: false
+      add :is_in, :boolean, default: false
 
       timestamps
     end

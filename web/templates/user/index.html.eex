@@ -6,6 +6,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
 
       <th></th>
     </tr>
@@ -17,10 +18,11 @@
       <td><%= link user.email, to: user_path(@conn, :show, user) %></td>
       <td><%= user.comment %></td>
       <td>CSSBOX</td>
+      <td><%= user.is_in %></td>
 
       <td class="text-right">
-        <%= link "In", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
-        <%= link "Out", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %>
+        <%= link "In", to: user_path(@conn, :punchin, user), class: "btn btn-default btn-xs" %>
+        <%= link "Out", to: user_path(@conn, :punchout, user), class: "btn btn-default btn-xs" %>
       </td>
     </tr>
 <% end %>
