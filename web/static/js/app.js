@@ -1,21 +1,47 @@
-// Brunch automatically concatenates all files in your
-// watched paths. Those paths can be configured at
-// config.paths.watched in "brunch-config.js".
-//
-// However, those files will only be executed if
-// explicitly imported. The only exception are files
-// in vendor, which are never wrapped in imports and
-// therefore are always executed.
+import {Socket, LongPoller} from "phoenix"
 
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
-import "deps/phoenix_html/web/static/js/phoenix_html"
+class App {
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
+  static init() {
+    let socket = new Socket("/socket", {
+      logger: ((kind, msg, data) => { console.log(`${kind: ${msg}`, data) }) 
+    })
 
-// import socket from "./socket"
+    socket.connect({user_id: "123"})
+
+    socket onOpen( ev => console.log("OPEN", ev) )
+    socket onError( ev => console.log("ERROR", ev) )
+    socket onClose( e => console.log("CLOSE", e) )
+
+    var chan = socket.channel("tk:wilma", {})
+    chan.join().receive("ignore", () => console.log("auth error")
+        .receive("ok", () => console.log("join ok"))
+        .after(10000, () => console.log("Connection interruption"))
+    chan.onError(e => console.log("something went wrong", e))
+    chan.onClose(e => console.log("channel closed"), e))
+
+    $input.off("keypress").on("keypress", e => {
+      if (e.keyCode == 13) {
+        alert("before2")
+        chan.push("new:msg", {hello: "world"})
+        alert("after2")
+      }
+    })
+
+    chan.on("new:msg", msg => {
+      alert("new message: " + msg)
+    })
+
+    chan.on("user:entered", msg => {
+      alert("entered: " + msg)
+    }
+
+
+  }
+
+
+}
+
+$( () => App.init() )
+
+export default App
