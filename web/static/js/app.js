@@ -8,26 +8,9 @@ class App {
     socket.onClose( e => console.log("Closed") )
 
 
-//    var userchannel = socket.channel("user:Wilma", "greatthing")
-//
-//    userchannel.join()
-//      .receive("error", () => console.log("Failed to connect to userchannel"))
-//      .receive("ok", () => console.log("Connected to userchannel!"))
-//
-//    userchannel.on("punched:in", msg => console.log("IN: " + msg) )
-//    userchannel.on("punched:out", msg => console.log("OUT: " + msg) )
-//
-//
-//
-//    $(".punchin").click(function(){
-//      userchannel.push("punch:in", {hi: "der"})
-//    })
-//
-//    $(".punchout").click(function(){
-//      userchannel.push("punch:out", {hi: "wonder"})
-//    })
-
     $(".userrow").each(function(){
+
+      updaterow($(this));
 
       var nameofuser = $(this).data("nameofuser")
       var thisuserchannel = socket.channel("user:" + nameofuser, "greatthing")
@@ -58,4 +41,21 @@ class App {
 $( () => App.init() )
 
 export default App
+
+
+
+
+
+
+function updaterow(row) {
+
+  // update tc
+  var imageTagForTc = row.data("tc") ? "<img src='/images/greenwifismall.png' />" : "<img src='/images/graywifismall.png' />" 
+  row.find(".tc").html(imageTagForTc) 
+  
+  //update rowcolor
+  var myColor = row.data("is_in") ? "lightgreen" : "#FFF"
+  row.find($(".inout")).css("background-color", myColor)
+}
+
 

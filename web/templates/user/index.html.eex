@@ -1,6 +1,6 @@
 <!--<h2>Listing users</h2>-->
 
-<table class="table">
+<table class="table" style="border 2px solid #EEE">
   <thead>
     <tr>
       <th></th>
@@ -13,23 +13,20 @@
   </thead>
   <tbody>
 <%= for user <- @users do %>
-  <tr class="userrow" data-nameofuser="<%= user.email %>">
-      <td><%= if user.tc,  do: "TC" %></td>
+  <tr class="userrow" data-nameofuser="<%= user.email %>" data-is_in="<%= user.is_in %>" data-tc="<%= user.tc %>" style="border: 2px solid #EEE">
+    <td class="tc" width="25"></td>
       <td><%= link user.email, to: user_path(@conn, :show, user) %></td>
-      <td><%= user.comment %></td>
+      <td width="50%"><%= user.comment %></td>
       <td>CSSBOX</td>
       <td><%= user.is_in %></td>
 
-      <td class="text-right">
-        <div class="btn btn-default btn-xs punchin"> In </div>
-        <div class="btn btn-default btn-xs punchout"> Out </div>
+      <td class="text-center inout" width="80">
+        <span class="btn btn-default btn-xs punchin">In</span>&nbsp;<span class="btn btn-default btn-xs punchout">Out</span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
-<p id="me">
-  Me
-</p>
+
 
 <%= link "New user", to: user_path(@conn, :new) %>
