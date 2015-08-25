@@ -1,41 +1,54 @@
-import {Socket, LongPoller} from "phoenix"
+import {Socket} from "phoenix"
 
 class App {
-
   static init() {
-    let socket = new Socket("/socket", {
-      logger: ((kind, msg, data) => { console.log(`${kind: ${msg}`, data) }) 
+
+    var socket = new Socket("/socket")
+    socket.connect()
+    socket.onClose( e => console.log("Closed") )
+
+
+//    var userchannel = socket.channel("user:Wilma", "greatthing")
+//
+//    userchannel.join()
+//      .receive("error", () => console.log("Failed to connect to userchannel"))
+//      .receive("ok", () => console.log("Connected to userchannel!"))
+//
+//    userchannel.on("punched:in", msg => console.log("IN: " + msg) )
+//    userchannel.on("punched:out", msg => console.log("OUT: " + msg) )
+//
+//
+//
+//    $(".punchin").click(function(){
+//      userchannel.push("punch:in", {hi: "der"})
+//    })
+//
+//    $(".punchout").click(function(){
+//      userchannel.push("punch:out", {hi: "wonder"})
+//    })
+
+    $(".userrow").each(function(){
+
+      var nameofuser = $(this).data("nameofuser")
+      var thisuserchannel = socket.channel("user:" + nameofuser, "greatthing")
+
+      thisuserchannel.join()
+        .receive("error", () => console.log("Failed to connect to " + nameofuser))
+        .receive("ok", () => console.log("Connected to userchannel for " + nameofuser))
+
+      thisuserchannel.on("punched:in", msg => console.log(nameofuser + "IN: " + msg) )
+      thisuserchannel.on("punched:out", msg => console.log(nameofuser + "OUT: " + msg) )
+
+      $(this).find($(".punchin")).click(function(){
+        thisuserchannel.push("punch:in", {hi: "der"})
+      })
+  
+      $(this).find($(".punchout")).click(function(){
+        thisuserchannel.push("punch:out", {hi: "der"})
+      })
+  
+
     })
-
-    socket.connect({user_id: "123"})
-
-    socket onOpen( ev => console.log("OPEN", ev) )
-    socket onError( ev => console.log("ERROR", ev) )
-    socket onClose( e => console.log("CLOSE", e) )
-
-    var chan = socket.channel("tk:wilma", {})
-    chan.join().receive("ignore", () => console.log("auth error")
-        .receive("ok", () => console.log("join ok"))
-        .after(10000, () => console.log("Connection interruption"))
-    chan.onError(e => console.log("something went wrong", e))
-    chan.onClose(e => console.log("channel closed"), e))
-
-    $input.off("keypress").on("keypress", e => {
-      if (e.keyCode == 13) {
-        alert("before2")
-        chan.push("new:msg", {hello: "world"})
-        alert("after2")
-      }
-    })
-
-    chan.on("new:msg", msg => {
-      alert("new message: " + msg)
-    })
-
-    chan.on("user:entered", msg => {
-      alert("entered: " + msg)
-    }
-
 
   }
 
@@ -45,3 +58,4 @@ class App {
 $( () => App.init() )
 
 export default App
+

@@ -1,4 +1,4 @@
-<h2>Listing users</h2>
+<!--<h2>Listing users</h2>-->
 
 <table class="table">
   <thead>
@@ -13,7 +13,7 @@
   </thead>
   <tbody>
 <%= for user <- @users do %>
-    <tr>
+  <tr class="userrow" data-nameofuser="<%= user.email %>">
       <td><%= if user.tc,  do: "TC" %></td>
       <td><%= link user.email, to: user_path(@conn, :show, user) %></td>
       <td><%= user.comment %></td>
@@ -21,12 +21,15 @@
       <td><%= user.is_in %></td>
 
       <td class="text-right">
-        <%= link "In", to: user_path(@conn, :punchin, user), class: "btn btn-default btn-xs" %>
-        <%= link "Out", to: user_path(@conn, :punchout, user), class: "btn btn-default btn-xs" %>
+        <div class="btn btn-default btn-xs punchin"> In </div>
+        <div class="btn btn-default btn-xs punchout"> Out </div>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
+<p id="me">
+  Me
+</p>
 
 <%= link "New user", to: user_path(@conn, :new) %>

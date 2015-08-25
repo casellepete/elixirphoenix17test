@@ -2,7 +2,7 @@ defmodule Tk.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", Tk.RoomChannel
+  channel "user:*", Tk.UserChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
