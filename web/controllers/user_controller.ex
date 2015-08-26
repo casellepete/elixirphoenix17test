@@ -1,12 +1,13 @@
 defmodule Tk.UserController do
   use Tk.Web, :controller
+  import Ecto.Query
 
   alias Tk.User
 
   plug :scrub_params, "user" when action in [:create, :update]
 
   def index(conn, _params) do
-    users = Repo.all(User)
+    users = User |> order_by([user], desc: user.id) |> Repo.all 
     render(conn, "index.html", users: users)
   end
 

@@ -1,5 +1,7 @@
 <!--<h2>Listing users</h2>-->
 
+<script src="<%= static_path(@conn, "/js/tkindex.js") %>"></script>
+
 <table class="table" style="border 2px solid #EEE">
   <thead>
     <tr>
@@ -15,8 +17,11 @@
   <tr class="userrow" data-nameofuser="<%= user.email %>" data-user_id="<%= user.id %>" data-is_in="<%= user.is_in %>" data-tc="<%= user.tc %>" style="border: 2px solid #EEE">
     <td class="tc" width="25"></td>
       <td><%= link user.email, to: user_path(@conn, :show, user) %></td>
-      <td width="50%"><%= user.comment %></td>
-      <td>CSSBOX</td>
+      <td width="50%" style="font-size: 84%; color: gray" class="tkcomment"><%= user.comment %></td>
+      <td>
+        <canvas id="canvas<%= user.id %>" width="100" height="20" style="border: 2px solid gray">
+        </canvas>
+      </td>
       <td class="text-center inout" width="80">
         <span class="btn btn-default btn-xs punchin">In</span>&nbsp;<span class="btn btn-default btn-xs punchout">Out</span>
       </td>
