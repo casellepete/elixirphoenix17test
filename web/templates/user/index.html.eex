@@ -6,7 +6,6 @@
       <th></th>
       <th></th>
       <th></th>
-      <th></th>
 
       <th></th>
     </tr>
@@ -18,8 +17,6 @@
       <td><%= link user.email, to: user_path(@conn, :show, user) %></td>
       <td width="50%"><%= user.comment %></td>
       <td>CSSBOX</td>
-      <td><%= user.is_in %></td>
-
       <td class="text-center inout" width="80">
         <span class="btn btn-default btn-xs punchin">In</span>&nbsp;<span class="btn btn-default btn-xs punchout">Out</span>
       </td>
