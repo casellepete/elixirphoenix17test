@@ -29,11 +29,26 @@ defmodule Tk.UserChannel do
   end
 
   def handle_in("tc:toggle", msg, socket) do
-    r = :random.uniform(2)
-    re = r == 2
-    IO.puts"tc:toggle #{r} #{re}"
-    broadcast! socket, "tc:#{re}", %{sent_msg: inspect(msg)}
-    {:reply, {:ok, %{msg: "in"}}, assign(socket, :dude, "assigned")}
+    user = Tk.Repo.get!(Tk.User, msg["user_id"])
+    IO.puts "((((((((((((((((((((((((((((((((((((((((((((("
+    IO.puts inspect(user)
+    IO.puts inspect(user.id)
+    IO.puts inspect(user.tc)
+    IO.puts "((((((((((((((((((((((((((((((((((((((((((((("
+    case Tk.Repo.update( Tk.User.changeset(user, %{ tc: !user.tc }) ) do
+      {:ok, user} ->
+        IO.puts"tc:toggle #{user.tc}"
+        broadcast! socket, "tc:#{user.tc}", %{sent_msg: inspect(msg)}
+        {:reply, {:ok, %{msg: "hi"}}, assign(socket, :dude, "assigned")}
+      {:error, changeset} ->
+        IO.puts" ERROR tc:toggle #{user[:tc]}"
+        broadcast! socket, "tc:#{user.tc}", %{sent_msg: inspect(msg)}
+        {:reply, {:ok, %{msg: "hi"}}, assign(socket, :dude, "assigned")}
+      _ ->
+        IO.puts" ERROR ERROR tc:toggle #{user[:tc]}"
+        broadcast! socket, "tc:#{user.tc}", %{sent_msg: inspect(msg)}
+        {:reply, {:ok, %{msg: "hi"}}, assign(socket, :dude, "assigned")}
+    end
   end
 
 

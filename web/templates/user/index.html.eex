@@ -12,7 +12,7 @@
   </thead>
   <tbody>
 <%= for user <- @users do %>
-  <tr class="userrow" data-nameofuser="<%= user.email %>" data-is_in="<%= user.is_in %>" data-tc="<%= user.tc %>" style="border: 2px solid #EEE">
+  <tr class="userrow" data-nameofuser="<%= user.email %>" data-user_id="<%= user.id %>" data-is_in="<%= user.is_in %>" data-tc="<%= user.tc %>" style="border: 2px solid #EEE">
     <td class="tc" width="25"></td>
       <td><%= link user.email, to: user_path(@conn, :show, user) %></td>
       <td width="50%"><%= user.comment %></td>

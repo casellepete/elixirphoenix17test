@@ -43,15 +43,15 @@ class App {
       })
 
       row.find($(".punchin")).click(function(){
-        thisuserchannel.push("punch:in", {hi: "der"})
+        thisuserchannel.push("punch:in", {user_id: row.data("user_id")})
       })
   
       row.find($(".punchout")).click(function(){
-        thisuserchannel.push("punch:out", {hi: "der"})
+        thisuserchannel.push("punch:out", {user_id: row.data("user_id")})
       })
   
       row.find($(".tc")).click(function(){
-        thisuserchannel.push("tc:toggle", {hi: "der"})
+        thisuserchannel.push("tc:toggle", {user_id: row.data("user_id")})
       })
   
 
