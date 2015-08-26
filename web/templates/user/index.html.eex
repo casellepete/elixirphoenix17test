@@ -14,12 +14,19 @@
   </thead>
   <tbody>
 <%= for user <- @users do %>
-  <tr class="userrow" data-nameofuser="<%= user.email %>" data-user_id="<%= user.id %>" data-is_in="<%= user.is_in %>" data-tc="<%= user.tc %>" style="border: 2px solid #EEE">
+  <tr class="userrow" 
+   data-nameofuser="<%= user.email %>" 
+   data-user_id="<%= user.id %>" 
+   data-times="<%= :random.uniform(9) + 28 %>.in|<%= :random.uniform(9) + 46 %>.out|<%= :random.uniform(9) + 53 %>.in|<%= :random.uniform(20) + 60 %>.out" 
+   data-is_in="<%= user.is_in %>" 
+   data-tc="<%= user.tc %>" 
+   style="border: 2px solid #EEE">
     <td class="tc" width="25"></td>
       <td><%= link user.email, to: user_path(@conn, :show, user) %></td>
       <td width="50%" style="font-size: 84%; color: gray" class="tkcomment"><%= user.comment %></td>
-      <td>
-        <canvas id="canvas<%= user.id %>" width="100" height="20" style="border: 2px solid gray">
+      <td width="100">
+        &nbsp;
+        <canvas id="canvas<%= user.id %>" width="0" height="0" style="border: 0px solid #DDDDDD">
         </canvas>
       </td>
       <td class="text-center inout" width="80">

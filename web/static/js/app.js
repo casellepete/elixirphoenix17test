@@ -150,7 +150,25 @@ function updaterow(row) {
   //update canvas
   var c = document.getElementById("canvas" + row.data("user_id"))
   var ctx = c.getContext("2d");
-  ctx.fillStyle = "gray"
+
+  var times = "" + row.data('times') //.split('|');
+  var timeAry = times.split('|').reverse();
+  console.log(timeAry);
+  ctx.globalAlpha=1.0
+  jQuery.each(timeAry, function(index, item) {
+    var t = item.split('.');
+    ctx.fillStyle = t[1] == "in" ? "#FFFFFF" : "#90EE90"
+    ctx.fillRect(0,0,t[0],20)
+  });
+
+
+  //ctx.globalAlpha=0.7
+  ctx.fillStyle = "#FFFFFF"
+  ctx.fillRect(0,0,33,5)
+  ctx.fillRect(0,15,33,5)
+  ctx.fillRect(71,0,29,5)
+  ctx.fillRect(71,15,29,5)
+  ctx.fillStyle = "#DDDDDD"
   ctx.fillRect(33,0,1,20)
   ctx.fillRect(71,0,1,20)
 }
