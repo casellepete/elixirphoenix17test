@@ -10,23 +10,38 @@ class App {
 
     $(".userrow").each(function(){
 
-      updaterow($(this));
+      var row = $(this);
 
-      var nameofuser = $(this).data("nameofuser")
+      updaterow(row);
+
+      var nameofuser = row.data("nameofuser")
+      alert(nameofuser);
       var thisuserchannel = socket.channel("user:" + nameofuser, "greatthing")
 
       thisuserchannel.join()
-        .receive("error", () => console.log("Failed to connect to " + nameofuser))
+
+        .receive("error", () => console.log("Failed to connect to " + nameofuser)) 
         .receive("ok", () => console.log("Connected to userchannel for " + nameofuser))
 
-      thisuserchannel.on("punched:in", msg => console.log(nameofuser + "IN: " + msg) )
-      thisuserchannel.on("punched:out", msg => console.log(nameofuser + "OUT: " + msg) )
+      thisuserchannel.on("punched:in", msg => {
+        console.log(nameofuser + "IN: " + msg)
+        row.data("is_in", true)
+        updaterow(row)
+        console.log(row.data("is_in"))
+      })
 
-      $(this).find($(".punchin")).click(function(){
+      thisuserchannel.on("punched:out", msg => {
+        console.log(nameofuser + "OUT: " + msg) 
+        row.data("is_in", false)
+        updaterow(row)
+        console.log(row.data("is_in"))
+      })
+
+      row.find($(".punchin")).click(function(){
         thisuserchannel.push("punch:in", {hi: "der"})
       })
   
-      $(this).find($(".punchout")).click(function(){
+      row.find($(".punchout")).click(function(){
         thisuserchannel.push("punch:out", {hi: "der"})
       })
   
