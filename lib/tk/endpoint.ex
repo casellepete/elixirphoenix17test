@@ -36,4 +36,6 @@ defmodule Tk.Endpoint do
     signing_salt: "CpZWX6Q6"
 
   plug Tk.Router
+
+  Tk.Kv.start
 end
